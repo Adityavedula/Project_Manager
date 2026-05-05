@@ -1,6 +1,4 @@
-const API_BASE = window.location.origin.startsWith('http')
-    ? window.location.origin + '/api/v1/auth'
-    : 'http://localhost:8080/api/v1/auth';
+const API_BASE = window.location.origin + '/api/v1/auth';
 
 const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
