@@ -35,8 +35,8 @@ public class SecurityConfiguration {
                                 "/index.html",
                                 "/dashboard.html",
                                 "/project.html",
-                                "/**.js",
-                                "/**.css",
+                                "/*.js",
+                                "/*.css",
                                 "/favicon.ico",
                                 "/api/v1/auth/**"
                         ).permitAll()

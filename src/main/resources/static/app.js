@@ -85,7 +85,6 @@ const user = getUser();
 const token = getToken();
 
 if (!requireAuth()) {
-    module && module.exports;
 }
 
 document.getElementById('userName').textContent = user.fullName;
@@ -128,6 +127,9 @@ async function loadProjects() {
         projects.forEach(p => {
             const card = document.createElement('div');
             card.className = 'project-card';
+            card.dataset.projectId = p.id;
+            card.dataset.projectName = p.name;
+            card.dataset.projectDesc = p.description || '';
 
             const taskCount = p.tasks ? p.tasks.length : 0;
             const completedCount = p.tasks ? p.tasks.filter(t => t.status === 'COMPLETED').length : 0;
@@ -152,26 +154,26 @@ async function loadProjects() {
                     <div class="progress-fill" style="width: ${progress}%"></div>
                 </div>
                 <div class="card-actions">
-                    <button class="btn-sm btn-view" onclick="viewProject(${p.id})">
+                    <button class="btn-sm btn-view action-view">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
                         </svg>
                         View
                     </button>
                     ${user.role === 'ADMIN' ? `
-                    <button class="btn-sm btn-edit" onclick="editProject(${p.id}, '${escapeHtml(p.name)}', '${escapeHtml(p.description || '')}')">
+                    <button class="btn-sm btn-edit action-edit">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
                         </svg>
                         Edit
                     </button>
-                    <button class="btn-sm btn-members" onclick="openMembersModal(${p.id})">
+                    <button class="btn-sm btn-members action-members">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
                         </svg>
                         Team
                     </button>
-                    <button class="btn-sm btn-delete" onclick="deleteProject(${p.id})">
+                    <button class="btn-sm btn-delete action-delete">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
                         </svg>
@@ -181,6 +183,34 @@ async function loadProjects() {
                 </div>
             `;
             grid.appendChild(card);
+        });
+
+        document.querySelectorAll('.action-view').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.project-card');
+                viewProject(card.dataset.projectId);
+            });
+        });
+
+        document.querySelectorAll('.action-edit').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.project-card');
+                editProject(card.dataset.projectId, card.dataset.projectName, card.dataset.projectDesc);
+            });
+        });
+
+        document.querySelectorAll('.action-members').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.project-card');
+                openMembersModal(card.dataset.projectId);
+            });
+        });
+
+        document.querySelectorAll('.action-delete').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.project-card');
+                deleteProject(card.dataset.projectId);
+            });
         });
     } catch (err) {
         console.error('Error loading projects:', err);
@@ -260,12 +290,12 @@ async function deleteProject(id) {
 }
 
 function viewProject(id) {
-    localStorage.setItem('currentProjectId', id);
+    localStorage.setItem('currentProjectId', String(id));
     window.location.href = 'project.html';
 }
 
 async function openMembersModal(projectId) {
-    localStorage.setItem('currentProjectId', projectId);
+    localStorage.setItem('currentProjectId', String(projectId));
     await loadMembers(projectId);
     openModal('membersModal');
 }
