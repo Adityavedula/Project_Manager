@@ -38,7 +38,8 @@ public class SecurityConfiguration {
                                 "/*.js",
                                 "/*.css",
                                 "/favicon.ico",
-                                "/api/v1/auth/**"
+                                "/api/v1/auth/**",
+                                "/api/v1/admin/auth/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

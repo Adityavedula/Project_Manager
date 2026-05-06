@@ -15,6 +15,7 @@ com\example\projectmanager\controller\DashboardController.class
 com\example\projectmanager\service\DashboardService$1.class
 com\example\projectmanager\model\User$Role.class
 com\example\projectmanager\service\AuthenticationService.class
+com\example\projectmanager\dto\AdminRegisterRequest.class
 com\example\projectmanager\dto\TaskRequest$TaskRequestBuilder.class
 com\example\projectmanager\dto\UserResponse$UserResponseBuilder.class
 com\example\projectmanager\controller\ProjectController.class
@@ -27,6 +28,8 @@ com\example\projectmanager\model\User$UserBuilder.class
 com\example\projectmanager\service\DashboardService.class
 com\example\projectmanager\config\SecurityConfiguration.class
 com\example\projectmanager\model\Task$Status.class
+com\example\projectmanager\controller\AdminAuthenticationController.class
+com\example\projectmanager\dto\AdminRegisterRequest$AdminRegisterRequestBuilder.class
 com\example\projectmanager\exception\ResourceNotFoundException.class
 com\example\projectmanager\dto\RegisterRequest$RegisterRequestBuilder.class
 com\example\projectmanager\dto\AuthenticationRequest$AuthenticationRequestBuilder.class
@@ -38,6 +41,7 @@ com\example\projectmanager\dto\DashboardStats$DashboardStatsBuilder.class
 com\example\projectmanager\dto\UserResponse.class
 com\example\projectmanager\dto\ProjectRequest$ProjectRequestBuilder.class
 com\example\projectmanager\model\Task$TaskBuilder.class
+com\example\projectmanager\service\AdminAuthenticationService.class
 com\example\projectmanager\service\TaskService.class
 com\example\projectmanager\dto\AuthenticationResponse.class
 com\example\projectmanager\dto\ProjectRequest.class

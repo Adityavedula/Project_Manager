@@ -36,6 +36,44 @@
                 </p>
             </div>
 
+            <div class="admin-login-section">
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+                <button type="button" class="btn-admin-login" id="showAdminLogin">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-12a2 2 0 00-2-2h-12a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    Admin Login
+                </button>
+            </div>
+
+            <div id="admin-login-form" class="hidden">
+                <div class="admin-header">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-12a2 2 0 00-2-2h-12a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <h3>Admin Portal</h3>
+                    <p class="text-muted">Restricted access for administrators</p>
+                </div>
+                <form id="adminLoginForm">
+                    <div class="form-group">
+                        <label for="adminEmail">Admin Email</label>
+                        <input type="email" id="adminEmail" placeholder="admin@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminPassword">Admin Password</label>
+                        <input type="password" id="adminPassword" placeholder="Enter admin password" required>
+                    </div>
+                    <button type="submit" class="btn-primary btn-block">Admin Login</button>
+                </form>
+                <p class="form-footer">
+                    <a href="#" id="showUserLogin">← Back to User Login</a>
+                </p>
+            </div>
+
             <div id="signup-form" class="hidden">
                 <h3>Create Account</h3>
                 <p class="text-muted">Join and start tracking your work</p>

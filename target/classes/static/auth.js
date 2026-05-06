@@ -1,11 +1,13 @@
-const API_BASE = window.location.origin.startsWith('http')
-    ? window.location.origin + '/api/v1/auth'
-    : 'http://localhost:8080/api/v1/auth';
+const USER_API_BASE = window.location.origin + '/api/v1/auth';
+const ADMIN_API_BASE = window.location.origin + '/api/v1/admin/auth';
 
 const loginForm = document.getElementById('login-form');
+const adminLoginForm = document.getElementById('admin-login-form');
 const signupForm = document.getElementById('signup-form');
 const showSignup = document.getElementById('showSignup');
 const showLogin = document.getElementById('showLogin');
+const showAdminLogin = document.getElementById('showAdminLogin');
+const showUserLogin = document.getElementById('showUserLogin');
 
 function showError(formId, message) {
     const existing = document.getElementById(formId + '-error');
@@ -41,6 +43,23 @@ showLogin.addEventListener('click', (e) => {
     loginForm.classList.remove('hidden');
 });
 
+if (showAdminLogin) {
+    showAdminLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginForm.classList.add('hidden');
+        signupForm.classList.add('hidden');
+        adminLoginForm.classList.remove('hidden');
+    });
+}
+
+if (showUserLogin) {
+    showUserLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        adminLoginForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+    });
+}
+
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('loginEmail').value.trim();
@@ -51,7 +70,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     submitBtn.textContent = 'Logging in...';
 
     try {
-        const res = await fetch(`${API_BASE}/authenticate`, {
+        const res = await fetch(`${USER_API_BASE}/authenticate`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -95,7 +114,7 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
     submitBtn.textContent = 'Creating account...';
 
     try {
-        const res = await fetch(`${API_BASE}/register`, {
+        const res = await fetch(`${USER_API_BASE}/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ fullName, email, password, role: 'MEMBER' })
@@ -122,3 +141,43 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
         submitBtn.textContent = 'Sign Up';
     }
 });
+
+if (document.getElementById('adminLoginForm')) {
+    document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('adminEmail').value.trim();
+        const password = document.getElementById('adminPassword').value;
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Logging in...';
+
+        try {
+            const res = await fetch(`${ADMIN_API_BASE}/authenticate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify({
+                    id: data.id,
+                    fullName: data.fullName,
+                    email: data.email,
+                    role: data.role
+                }));
+                window.location.href = 'dashboard.html';
+            } else {
+                showError('adminLoginForm', data.message || 'Invalid admin credentials');
+            }
+        } catch (err) {
+            showError('adminLoginForm', 'Cannot connect to server. Please try again.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Admin Login';
+        }
+    });
+}

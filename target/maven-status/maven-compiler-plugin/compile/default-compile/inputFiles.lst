@@ -3,7 +3,9 @@ D:\Code\Project_Manager\src\main\java\com\example\projectmanager\repository\Task
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\security\JwtService.java
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\dto\AuthenticationResponse.java
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\config\WebMvcConfig.java
+D:\Code\Project_Manager\src\main\java\com\example\projectmanager\controller\AdminAuthenticationController.java
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\repository\ProjectRepository.java
+D:\Code\Project_Manager\src\main\java\com\example\projectmanager\service\AdminAuthenticationService.java
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\dto\AuthenticationRequest.java
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\controller\DashboardController.java
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\service\ProjectService.java
@@ -19,6 +21,7 @@ D:\Code\Project_Manager\src\main\java\com\example\projectmanager\controller\Auth
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\dto\UserResponse.java
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\security\JwtAuthenticationFilter.java
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\repository\UserRepository.java
+D:\Code\Project_Manager\src\main\java\com\example\projectmanager\dto\AdminRegisterRequest.java
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\controller\TaskController.java
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\model\Task.java
 D:\Code\Project_Manager\src\main\java\com\example\projectmanager\service\DashboardService.java
